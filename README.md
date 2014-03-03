@@ -46,17 +46,17 @@ Default: `false`
 
 Whether to start upon instantiation or not.
 
+### leading
+Type: `boolean`  
+Default: `false`
+
+Heartbeats will not execute the function when it is started until one interval passes. Pass `true` for this option to fire the function immediately on start up.
+
 ### trailing
 Type: `boolean`  
 Default: `false`
 
 When a heartbeat is stopped the function will immediately stop being called. Pass `true` for this option to execute the function a final time *after* the heartbeat has stopped.
-
-### leading
-Type: `boolean`  
-Default: `false`
-
-Heartbeats will not execute the function when it is started until an initial interval passes. Pass `true` for this option to fire the function immediately on start up.
 
 ## Heartbeat.prototype
 

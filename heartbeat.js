@@ -35,6 +35,9 @@
     if ( this._alive ) {
       return;
     }
+    if ( this.leading ) {
+      this._executeFn();
+    }
 
     this._alive = true;
     this._beat();
