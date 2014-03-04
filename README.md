@@ -4,9 +4,9 @@ Perform a function on an interval.
 
 ## Getting Started
 
-Get the source by direct download, by cloning this repository, or through [Bower](http://bower.io/).
+Get the source by [direct download](https://github.com/jmeas/heartbeat.js/blob/master/heartbeat.min.js), by cloning this repository, or through [Bower](http://bower.io/).
 
-`bower install heartbeats.js`
+`bower install heartbeat.js`
 
 ## Usage
 
@@ -20,7 +20,7 @@ var heartbeat = new Heartbeat({
 
 ## Options
 
-You can pass options to modify the behavior of Heartbeats.
+You can pass options to modify the behavior of a heartbeat.
 
 ### fn
 Type: `function`  
@@ -101,3 +101,7 @@ The number of times the heartbeat has been started.
 ##### `stopCount()`
 
 The number of times the heartbeat has been stopped.
+
+## Browser Support
+
+Tested in IE8+. May also work in IE6 and 7.
