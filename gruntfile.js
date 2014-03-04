@@ -6,7 +6,8 @@ module.exports = function( grunt ) {
 
     jshint: {
       options: {
-        '-W093': true
+        '-W093': true,
+        "es3": true
       },
       main: {
         src: 'heartbeat.js'

@@ -28,6 +28,12 @@ Default: `function() {}`
 
 The function to be executed on an interval.
 
+### async
+Type: `boolean`  
+Default: `false`
+
+Whether the function is asynchronous or not. See example usage on how to use this option.
+
 ### context
 Type: `object`  
 Default: `window`
@@ -101,3 +107,54 @@ The number of times the heartbeat has been started.
 ##### `stopCount()`
 
 The number of times the heartbeat has been stopped.
+
+##### `resolve`
+
+For async mode only. Call this when your asynchronous function has completed to
+start the next polling interval. See the async usage section for more.
+
+## Async usage
+
+Asynchronous, slow functions cause problems for polling methods. Consider the example of the execution time of the
+async function being longer than the polling interval. Because of this possibility, heartbeat.js has a separate mode for handling asynchronous code.
+
+```js
+// Set up your heartbeat in async mode
+var heartbeat = new Heartbeat({
+  fn: someAsyncFn,
+  async: true
+});
+```
+
+In this mode the polling interval will not automatically reset itself when the function is called. Instead, it waits for you to tell
+it when the deferred has been resolved. Do this by executing the `resolve` function.
+
+```js
+// Call this when the asynchronous function completes
+heartbeat.resolve();
+```
+
+### Example with promises
+
+It's typical to track the progress of asynchronous Javascript functions with promises. In this example we'll take a look
+at a common use-case: short polling using `jQuery.ajax`.
+
+```js
+// The function we're passing to our heartbeat
+var fetch = function() {
+  
+  // Do something asynchronous that generates a promise-like object
+  var deferred = $.get( "//api.com/route");
+
+  // When the async function is done inform the heartbeat
+  deferred.always(function() {
+    heartbeat.resolve();
+  });
+
+};
+
+var heartbeat = new Heartbeat({
+  fn: fetch,
+  async: true
+});
+```

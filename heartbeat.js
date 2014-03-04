@@ -16,6 +16,7 @@
     this.interval = options.interval || 1000;
     this.trailing = options.trailing || false;
     this.leading = options.leading || false;
+    this.async = options.async || false;
 
     // Initial data
     this._alive = false;
@@ -100,6 +101,13 @@
 
   };
 
+  // Call this when a promise is complete to reset the interval
+  window.Heartbeat.prototype.resolve = function() {
+    if ( this.async ) {
+      this._beat();
+    }
+  };
+
   // Underscore's bind method
   window.Heartbeat.prototype._bind = function( func, context ) {
     var nativeBind = Function.prototype.bind;
@@ -136,7 +144,7 @@
       }
 
       // Only repeat if still alive ( for the trailing option )
-      if ( self._alive ) {
+      if ( self._alive && !self.async ) {
         self._bind( self._beat, self )();
       }
 
