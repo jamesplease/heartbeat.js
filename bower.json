@@ -1,7 +1,7 @@
 {
   "name": "heartbeat.js",
   "main": "heartbeat.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/jmeas/heartbeat.js",
   "authors": [
     "Jmeas <jellyes2@gmail.com>"

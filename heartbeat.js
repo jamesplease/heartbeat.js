@@ -25,6 +25,8 @@
     this._stopCount = 0;
     this._startCount = 0;
 
+    this._waiting = false;
+
     if ( options.autostart ) {
       this.start();
     }
@@ -33,15 +35,24 @@
 
   window.Heartbeat.prototype.start = function() {
 
+    // Don't start if already alive
     if ( this._alive ) {
       return;
     }
+
+    // Execute immediately if leading
     if ( this.leading ) {
       this._executeFn();
     }
 
     this._alive = true;
-    this._beat();
+
+    // Start the interval unless you're both async & leading
+    // in which case you're waiting for the resolution
+    if ( !this.async && !this.leading ) {
+      this._beat();
+    }
+    
     this._startCount++;
 
   };
@@ -103,7 +114,7 @@
 
   // Call this when a promise is complete to reset the interval
   window.Heartbeat.prototype.resolve = function() {
-    if ( this.async ) {
+    if ( this.async && !this._waiting ) {
       this._beat();
     }
   };
@@ -131,11 +142,15 @@
 
     var self = this;
 
+    this._waiting = true;
+
     setTimeout(function(){
 
       if ( !self._alive && !self.trailing ) {
         return;
       }
+
+      self._waiting = false;
 
       if ( self.fn && typeof self.fn === 'function' ) {
         self._executeFn();
