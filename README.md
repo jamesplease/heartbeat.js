@@ -32,7 +32,7 @@ The function to be executed on an interval.
 Type: `boolean`  
 Default: `false`
 
-Whether the function is asynchronous or not. See example usage on how to use this option.
+Toggle asynchronous mode with this option. For more, refer to the example usage section.
 
 ### context
 Type: `object`  
@@ -108,7 +108,7 @@ The number of times the heartbeat has been started.
 
 The number of times the heartbeat has been stopped.
 
-##### `resolve`
+##### `resolve()`
 
 For async mode only. Call this when your asynchronous function has completed to
 start the next polling interval. See the async usage section for more.
@@ -144,7 +144,7 @@ at a common use-case: short polling using `jQuery.ajax`.
 var fetch = function() {
   
   // Do something asynchronous that generates a promise-like object
-  var deferred = $.get( "//api.com/route");
+  var deferred = $.get( "//api.com/route" );
 
   // When the async function is done inform the heartbeat
   deferred.always(function() {
