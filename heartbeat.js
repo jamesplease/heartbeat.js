@@ -122,7 +122,6 @@
   window.Heartbeat.prototype._beat = function() {
 
     var self = this;
-    var boundLoop = this._beat.bind( this );
 
     setTimeout(function(){
 
