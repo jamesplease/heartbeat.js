@@ -1,6 +1,7 @@
 # heartbeat.js
 
-Perform a function on an interval.
+Repeat a function on an interval. heartbeat.js ensures that the interval restarts only *after* your function is
+complete. It supports both synchronous and asynchronous functions.
 
 ## Getting Started
 
