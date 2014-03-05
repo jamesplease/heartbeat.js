@@ -45,7 +45,8 @@ The value of `this` within the function.
 Type: `array`  
 Default: `[]`
 
-
+An array of arguments to supply to the executed function. To support dynamic options,
+you'll need to make a proxy function. See the examples section for more.
 
 ### interval
 Type: `number`  
@@ -120,7 +121,9 @@ The number of times the heartbeat has been stopped.
 For async mode only. Call this when your asynchronous function has completed to
 start the next polling interval. See the async usage section for more.
 
-## Async usage
+## Examples
+
+### Async Functions
 
 Asynchronous, slow functions cause problems for polling methods. Consider the example of the execution time of the
 async function being longer than the polling interval. Because of this possibility, heartbeat.js has a separate mode for handling asynchronous code.
@@ -141,7 +144,7 @@ it when the deferred has been resolved. Do this by executing the `resolve` funct
 heartbeat.resolve();
 ```
 
-### Example with promises
+#### Example with promises
 
 It's typical to track the progress of asynchronous Javascript functions with promises. In this example we'll take a look
 at a common use-case: short polling using `jQuery.ajax`.
@@ -164,6 +167,21 @@ var heartbeat = new Heartbeat({
   fn: fetch,
   async: true
 });
+```
+
+### Dynamic arguments
+
+To pass dynamic arguments you'll need a proxy function.
+
+```js
+var heartbeat = new Heartbeat({
+  fn: proxyFn
+});
+
+var proxyFn = function() {
+  var dynamicArg = getDynamicArg();
+  actualFn( dynamicArg );
+}
 ```
 
 ## Browser Support
