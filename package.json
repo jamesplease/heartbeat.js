@@ -26,6 +26,10 @@
     "grunt": "^0.4.2",
     "grunt-contrib-uglify": "^0.4.0",
     "load-grunt-tasks": "^0.4.0",
-    "grunt-contrib-jshint": "^0.8.0"
+    "grunt-contrib-jshint": "^0.8.0",
+    "mocha": "~1.17.1",
+    "grunt-blanket-mocha": "~0.4.0",
+    "blanket": "~1.1.6",
+    "connect": "~2.13.0"
   }
 }

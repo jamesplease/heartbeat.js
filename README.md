@@ -41,6 +41,12 @@ Default: `window`
 
 The value of `this` within the function.
 
+### args
+Type: `array`  
+Default: `[]`
+
+
+
 ### interval
 Type: `number`  
 Default: `1000`
