@@ -17,6 +17,7 @@
     this.trailing = options.trailing || false;
     this.leading = options.leading || false;
     this.async = options.async || false;
+    this.args = options.args || undefined;
 
     // Initial data
     this._alive = false;
@@ -105,7 +106,7 @@
   window.Heartbeat.prototype._executeFn = function() {
 
     try {
-     this._bind( this.fn, this.context )();
+     this.fn.apply( this.context, this.args );
     } catch( e ) {
       // Woops!
     }
@@ -117,25 +118,6 @@
     if ( this.async && !this._waiting ) {
       this._beat();
     }
-  };
-
-  // Underscore's bind method
-  window.Heartbeat.prototype._bind = function( func, context ) {
-    var nativeBind = Function.prototype.bind;
-    var slice = Array.prototype.slice;
-    var args, bound;
-    if (nativeBind && func.bind === nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
-    if (typeof func !== 'function') throw new TypeError();
-    args = slice.call(arguments, 2);
-    return bound = function() {
-      if (!(this instanceof bound)) return func.apply(context, args.concat(slice.call(arguments)));
-      ctor.prototype = func.prototype;
-      var self = new ctor();
-      ctor.prototype = null;
-      var result = func.apply(self, args.concat(slice.call(arguments)));
-      if (Object(result) === result) return result;
-      return self;
-    };
   };
 
   window.Heartbeat.prototype._beat = function() {
@@ -160,7 +142,7 @@
 
       // Only repeat if still alive ( for the trailing option )
       if ( self._alive && !self.async ) {
-        self._bind( self._beat, self )();
+        self._beat.apply( self );
       }
 
     }, self.interval);

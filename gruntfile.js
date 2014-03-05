@@ -27,7 +27,7 @@ module.exports = function( grunt ) {
     connect: {
       mocha: {
         options: {
-          base: [ './', './src', 'tests' ],
+          base: [ './', 'test' ],
           debug: true,
           open: true,
           keepalive: true
@@ -37,10 +37,10 @@ module.exports = function( grunt ) {
 
     blanket_mocha : {    
       test: {
-        src: ['tests/index.html'],                
+        src: ['test/index.html'],                
         options: {    
-          threshold: 70,
-          globalThreshold: 70,
+          threshold: 0,
+          globalThreshold: 0,
           log: true,
           logErrors: true
         }                
@@ -50,5 +50,8 @@ module.exports = function( grunt ) {
   });
 
   grunt.registerTask( 'default', ['jshint', 'blanket_mocha', 'uglify'] );
+
+
+  grunt.registerTask( 'browser-test', ['jshint', 'connect', 'blanket_mocha'] );
 
 };

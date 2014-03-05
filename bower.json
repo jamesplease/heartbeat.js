@@ -20,5 +20,11 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "chai": "~1.9.0",
+    "sinon-chai": "~2.5.0",
+    "mocha": "~1.17.1",
+    "sinonjs": "~1.8.2"
+  }
 }
