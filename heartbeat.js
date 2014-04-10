@@ -128,11 +128,11 @@
 
     setTimeout(function(){
 
+      self._waiting = false;
+
       if ( !self._alive && !self.trailing ) {
         return;
       }
-
-      self._waiting = false;
 
       if ( self.fn && typeof self.fn === 'function' ) {
         self._executeFn();
